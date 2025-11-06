@@ -1,8 +1,19 @@
 [phases.setup]
-nixPkgs = ['php83', 'php83Packages.composer']
+nixPkgs = [
+	'php83',
+	'php83Packages.composer',
+	'php83Extensions.curl',
+	'php83Extensions.mbstring',
+	'php83Extensions.zip',
+	'php83Extensions.pdo',
+	'php83Extensions.pdo_mysql',
+	'php83Extensions.gd',
+	'php83Extensions.fileinfo',
+	'php83Extensions.tokenizer'
+]
 
 [phases.install]
-cmds = ['composer install --no-dev --optimize-autoloader --no-interaction']
+cmds = ['COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader']
 
 [phases.build]
 cmds = ['php artisan key:generate --force', 'php artisan config:cache', 'php artisan route:cache']
