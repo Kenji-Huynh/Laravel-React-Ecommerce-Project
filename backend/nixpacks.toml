@@ -16,7 +16,12 @@ nixPkgs = [
 cmds = ['COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader']
 
 [phases.build]
-cmds = ['php artisan key:generate --force', 'php artisan config:cache', 'php artisan route:cache']
+cmds = [
+  'mkdir -p bootstrap/cache',
+  'php artisan key:generate --force',
+  'php artisan config:cache',
+  'php artisan route:cache'
+]
 
 [start]
 cmd = 'php artisan serve --host=0.0.0.0 --port=$PORT'
