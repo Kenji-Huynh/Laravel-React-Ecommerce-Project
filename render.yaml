@@ -1,0 +1,84 @@
+services:
+  # Laravel Backend API
+  - type: web
+    name: ecommerce-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    region: oregon
+    plan: free
+    branch: main
+    healthCheckPath: /api/health
+    envVars:
+      - key: APP_NAME
+        value: Ecommerce Backend
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        sync: false
+      - key: APP_KEY
+        generateValue: true
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: LOG_LEVEL
+        value: error
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        fromDatabase:
+          name: ecommerce-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: ecommerce-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: ecommerce-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: ecommerce-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: ecommerce-db
+          property: password
+      - key: CACHE_DRIVER
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: SESSION_DRIVER
+        value: file
+      - key: SESSION_LIFETIME
+        value: 120
+      - key: FILESYSTEM_DISK
+        value: cloudinary
+      - key: STRIPE_SECRET
+        sync: false
+      - key: STRIPE_CURRENCY
+        value: usd
+      - key: CLOUDINARY_URL
+        sync: false
+      - key: CLOUDINARY_UPLOAD_PRESET
+        sync: false
+      - key: CLOUDINARY_NOTIFICATION_URL
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: SANCTUM_STATEFUL_DOMAINS
+        sync: false
+      - key: SESSION_DOMAIN
+        sync: false
+    buildCommand: chmod +x ./render-build.sh && ./render-build.sh
+    startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
+
+databases:
+  # MySQL Database
+  - name: ecommerce-db
+    databaseName: ecommerce
+    user: ecommerce_user
+    plan: free
+    region: oregon
