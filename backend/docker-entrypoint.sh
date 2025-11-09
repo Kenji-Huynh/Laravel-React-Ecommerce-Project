@@ -3,9 +3,9 @@ set -e
 
 echo "🚀 Starting Laravel application..."
 
-# Run migrations
+# Run migrations with fresh reset
 echo "📦 Running database migrations..."
-php artisan migrate --force
+php artisan migrate:fresh --force || php artisan migrate --force
 
 # Seed database (optional - comment out if you don't want to reseed every time)
 if [ "$APP_ENV" = "production" ] && [ ! -f /app/storage/.seeded ]; then
