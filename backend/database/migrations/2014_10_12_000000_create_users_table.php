@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->enum('role',['customer', 'admin'])->default('customer');
+            // Use string for role to ensure compatibility across databases (e.g., Postgres)
+            $table->string('role', 32)->default('customer');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
