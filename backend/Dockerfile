@@ -1,26 +1,38 @@
 # Multi-stage build for Laravel on Render
 FROM php:8.3-fpm-alpine AS base
 
-# Install system dependencies and PHP extensions
-RUN apk add --no-cache \
+# Install system dependencies
+RUN apk update && apk add --no-cache \
     curl \
-    libzip-dev \
-    libpng-dev \
-    libjpeg-turbo-dev \
-    freetype-dev \
-    oniguruma-dev \
     zip \
     unzip \
     git \
     mysql-client \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install \
+    libzip \
+    libpng \
+    libjpeg-turbo \
+    freetype \
+    oniguruma
+
+# Install build dependencies (needed for compiling PHP extensions)
+RUN apk add --no-cache --virtual .build-deps \
+    libzip-dev \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    freetype-dev \
+    oniguruma-dev
+
+# Configure and install PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
     pdo_mysql \
     mbstring \
     zip \
     gd \
-    fileinfo \
-    tokenizer
+    fileinfo
+
+# Remove build dependencies to reduce image size
+RUN apk del .build-deps
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
