@@ -7,6 +7,8 @@ nixPkgs = [
 	'php83Extensions.zip',
 	'php83Extensions.pdo',
 	'php83Extensions.pdo_mysql',
+	'php83Extensions.pdo_pgsql',
+	'php83Extensions.pgsql',
 	'php83Extensions.gd',
 	'php83Extensions.fileinfo',
 	'php83Extensions.tokenizer'
