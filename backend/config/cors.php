@@ -18,9 +18,16 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'], // Cho phép tất cả origins để test
+    'allowed_origins' => [
+        env('FRONTEND_URL', 'http://localhost:5173'),
+        'http://localhost:5173',
+        'http://localhost:3000',
+    ],
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => [
+        '/^https:\/\/.*\.vercel\.app$/',
+        '/^https:\/\/.*\.railway\.app$/',
+    ],
 
     'allowed_headers' => ['*'],
 
@@ -28,6 +35,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false, // Đổi thành false vì không dùng cookies
+    'supports_credentials' => true
 
 ];
