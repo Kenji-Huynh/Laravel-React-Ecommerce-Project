@@ -11,9 +11,18 @@
 |
 */
 
-$app = new Illuminate\Foundation\Application(
-    $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
-);
+$rawBasePath = $_ENV['APP_BASE_PATH'] ?? null;
+
+// Guard against invalid / empty / root base path overrides coming from environment
+// Some deploy environments inject APP_BASE_PATH="/" (or blank) which breaks path resolution
+// and makes Laravel try to scan non‑existent or incorrect directories, leading to
+// Finder.php line 590: "The \"\" directory does not exist." errors during package:discover.
+$basePath = $rawBasePath;
+if (empty($basePath) || $basePath === '/' || !is_dir(rtrim($basePath, '/').'/app')) {
+    $basePath = dirname(__DIR__); // fallback to real project root
+}
+
+$app = new Illuminate\Foundation\Application($basePath);
 
 /*
 |--------------------------------------------------------------------------

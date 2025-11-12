@@ -14,6 +14,15 @@ mkdir -p storage/app/public
 
 # 2. Discover packages (now that .env is available)
 echo "📦 Discovering packages..."
+php -v || true
+pwd || true
+ls -la || true
+ls -la bootstrap || true
+ls -la storage || true
+ls -la storage/framework || true
+ls -la storage/framework/views || true
+ls -la resources || true
+ls -la resources/views || true
 php artisan package:discover --ansi || echo "⚠️  Package discovery failed (continuing)"
 
 # 3. Clear and cache config
