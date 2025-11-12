@@ -17,6 +17,7 @@ yarn-error.log
 /.idea
 /.vscode
 RAILWAY_ENV_VARIABLES.txt
+RAILWAY_ENV_CORRECTED.txt
 Dockerfile.backup
 docker-entrypoint.sh.backup
 .dockerignore
