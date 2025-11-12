@@ -25,9 +25,11 @@ ls -la resources || true
 ls -la resources/views || true
 php artisan package:discover --ansi || echo "⚠️  Package discovery failed (continuing)"
 
-# 3. Clear and cache config
-echo "🧹 Clearing config cache..."
-php artisan config:clear
+# 3. Clear caches to avoid stale http scheme in compiled views/routes
+echo "🧹 Clearing caches (config/route/view)..."
+php artisan config:clear || true
+php artisan route:clear || true
+php artisan view:clear || true
 
 echo "⚡ Caching config..."
 php artisan config:cache || echo "⚠️  Config cache failed (continuing)"
