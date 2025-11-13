@@ -36,8 +36,13 @@ php artisan config:cache || echo "⚠️  Config cache failed (continuing)"
 
 # 4. Run database migrations (allow failure)
 echo "🗄️  Running database migrations..."
-php artisan migrate --force || echo "⚠️  Migration failed or skipped (continuing anyway)"
+php artisan migrate --force || echo "⚠️  Migration failed (continuing anyway)"
 
-# 5. Start PHP development server
+# 5. Seed database if not already seeded
+echo "🌱 Seeding database..."
+php artisan db:seed --class=CategoriesTableSeeder --force || echo "⚠️  Categories seed skipped"
+php artisan db:seed --class=ProductsTableSeeder --force || echo "⚠️  Products seed skipped"
+
+# 6. Start PHP development server
 echo "✅ Server starting on 0.0.0.0:${PORT:-8080}"
 php -S 0.0.0.0:${PORT:-8080} -t public
