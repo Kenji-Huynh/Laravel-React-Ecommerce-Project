@@ -22,5 +22,12 @@ cmds = [
 	'mkdir -p bootstrap/cache storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs storage/app/public'
 ]
 
+[phases.deploy]
+cmds = [
+	'php artisan migrate --force',
+	'php artisan db:seed --class=CategoriesTableSeeder --force || true',
+	'php artisan db:seed --class=ProductsTableSeeder --force || true'
+]
+
 [start]
 cmd = 'php artisan serve --host=0.0.0.0 --port=$PORT'
