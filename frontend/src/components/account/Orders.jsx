@@ -51,10 +51,16 @@ const Orders = () => {
             </div>
             {Array.isArray(o.items) && o.items.length > 0 && (
               <div className="mt-2">
-                {o.items.slice(0, 3).map((it) => (
-                  <span key={it.id || `${o.id}-${it.product_id}`} className="me-2">
-                    {it.image && (
-                      <img src={imageUrl(it.image)} alt={it.name} width={40} height={40} style={{ objectFit: 'cover' }} />
+                {o.items.slice(0, 3).map((it, idx) => (
+                  <span key={it.id || `${o.id}-${idx}`} className="me-2">
+                    {it.product?.image_url && (
+                      <img 
+                        src={imageUrl(it.product.image_url)} 
+                        alt={it.product_name} 
+                        width={40} 
+                        height={40} 
+                        style={{ objectFit: 'cover', borderRadius: '4px' }} 
+                      />
                     )}
                   </span>
                 ))}

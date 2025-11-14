@@ -20,6 +20,7 @@ class OrderController extends Controller
     public function userOrders(Request $request)
     {
         $orders = $request->user()->orders()
+            ->with('items.product') // Load items với product info
             ->orderBy('created_at', 'desc')
             ->paginate(10);
         
