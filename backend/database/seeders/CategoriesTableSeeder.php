@@ -35,13 +35,15 @@ class CategoriesTableSeeder extends Seeder
         ];
 
         foreach ($categories as $category) {
-            Category::create([
-                'name' => $category['name'],
-                'slug' => Str::slug($category['name']),
-                'image' => $category['image'],
-                'sort_order' => $category['sort_order'],
-                'is_active' => true,
-            ]);
+            Category::updateOrCreate(
+                ['slug' => Str::slug($category['name'])],
+                [
+                    'name' => $category['name'],
+                    'image' => $category['image'],
+                    'sort_order' => $category['sort_order'],
+                    'is_active' => true,
+                ]
+            );
         }
     }
 }
