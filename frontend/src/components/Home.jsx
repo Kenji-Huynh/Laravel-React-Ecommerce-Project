@@ -7,6 +7,12 @@ import ProductCard from './common/ProductCard'
 import LoadingSpinner from './common/LoadingSpinner'
 import { getProducts } from '../services/api'
 
+// Import images from assets
+import bannerHero from '../assets/images/banner-hero.jpg'
+import maleImage from '../assets/images/male.jpg'
+import femaleImage from '../assets/images/female.jpg'
+import kidsImage from '../assets/images/kids.jpg'
+
 const Home = () => {
   const [featuredItems, setFeaturedItems] = useState([])
   const [newItems, setNewItems] = useState([])
@@ -68,18 +74,9 @@ const Home = () => {
               <div className="hero-image-container">
                 <div className="hero-image">
                   <img 
-                    src="/src/assets/images/banner-hero.jpg" 
+                    src={bannerHero} 
                     alt="Fashion Collection"
                     className="banner-img"
-                    onError={(e) => {
-                      e.target.style.display = 'none'
-                      e.target.parentElement.innerHTML = `
-                        <div class="image-placeholder">
-                          <h3>Fashion Image</h3>
-                          <p>Premium Collection</p>
-                        </div>
-                      `
-                    }}
                   />
                 </div>
               </div>
@@ -109,12 +106,9 @@ const Home = () => {
                 <div className="category-card">
                   <div className="category-image">
                     <img 
-                      src="/src/assets/images/male.jpg" 
+                      src={maleImage} 
                       alt="Men's Fashion"
                       className="category-img"
-                      onError={(e) => {
-                        e.target.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop'
-                      }}
                     />
                     <div className="category-overlay">
                       <h3>Men's Collection</h3>
@@ -137,12 +131,9 @@ const Home = () => {
                 <div className="category-card">
                   <div className="category-image">
                     <img 
-                      src="/src/assets/images/female.jpg" 
+                      src={femaleImage} 
                       alt="Women's Fashion"
                       className="category-img"
-                      onError={(e) => {
-                        e.target.src = 'https://images.unsplash.com/photo-1494790108755-2616c326ca45?w=400&h=500&fit=crop'
-                      }}
                     />
                     <div className="category-overlay">
                       <h3>Women's Collection</h3>
@@ -165,12 +156,9 @@ const Home = () => {
                 <div className="category-card">
                   <div className="category-image">
                     <img 
-                      src="/src/assets/images/kids.jpg" 
+                      src={kidsImage} 
                       alt="Kids Fashion"
                       className="category-img"
-                      onError={(e) => {
-                        e.target.src = 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=500&fit=crop'
-                      }}
                     />
                     <div className="category-overlay">
                       <h3>Kids Collection</h3>
